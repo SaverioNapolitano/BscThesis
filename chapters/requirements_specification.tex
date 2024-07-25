@@ -1,0 +1,342 @@
+
+\chapter{Specifica dei requisiti}
+
+Nelle sezioni seguenti verranno illustrati i principali requisiti che l'applicazione si pone come obiettivo di soddisfare.
+
+\section{Requisiti funzionali}
+
+Essi descrivono le funzionalità che il sistema deve offrire, intendendo con questo sia le operazioni che l'applicazione svolge sia le interazioni che la stessa ha con l'utente o con altri sistemi esterni con cui si interfaccia.
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF01} & \textbf{Aggiunta alimenti in dispensa}\\
+        \midrule
+        Input & Dati alimento acquistato - nome alimento, data di scadenza, quantità\\
+        Processo & Memorizzazione su lista e database degli alimenti\\
+        Output & Visualizzazione alimenti\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF01.1} & \textbf{Generazione notifica scadenza alimento}\\
+        \midrule
+        Input & Aggiunta di un prodotto alla dispensa\\
+        Processo & Si crea l’avviso su calendario relativo alla scadenza del prodotto\\
+        Output & Aggiunta dell’avviso sul calendario dell’utente\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF02} & \textbf{Rimozione alimenti in dispensa}\\
+        \midrule
+        Input & Click su pulsante “Delete”\\
+        Processo & Eliminazione alimento dalla lista e dal database\\
+        Output & Visualizzazione lista aggiornata\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF02.1} & \textbf{Rimozione avviso su calendario}\\
+        \midrule
+        Input & Rimozione prodotto dalla dispensa\\
+        Processo & Cancellazione avviso su calendario\\
+        Output & Rimozione avviso su calendario\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF03} & \textbf{Ordinamento prodotti dispensa per nome}\\
+        \midrule
+        Input & Click sulla colonna “Product”\\
+        Processo & Ordinamento prodotti in modo crescente o decrescente in base al nome\\
+        Output & Visualizzazione prodotti ordinati\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF04} & \textbf{Ordinamento prodotti in dispensa per data di scadenza}\\
+        \midrule
+        Input & Click sulla colonna “Expiration Date”\\
+        Processo & Ordinamento prodotti in modo crescente o decrescente in base alla data di scadenza\\
+        Output & Visualizzazione prodotti ordinati\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF05} & \textbf{Modifica nome alimento in dispensa}\\
+        \midrule
+        Input & Doppio click sul nome alimento e inserimento nuovo nome\\
+        Processo & Aggiornamento nome alimento in memoria e in database\\
+        Output & Visualizzazione alimento con nome aggiornato\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF06} & \textbf{Modifica dati alimento in dispensa}\\
+        \midrule
+        Input & Doppio click su data di scadenza e modifica dati\\
+        Processo & \makecell{Si apre una nuova finestra che consente la modifica dei dati dell’alimento; \\ Aggiornamento dati alimento in memoria e in database}\\
+        Output & Visualizzazione alimenti aggiornati\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF06.1} & \textbf{Modifica avviso calendario}\\
+        \midrule
+        Input & Modifica data di scadenza e/o nome prodotto\\
+        Processo & Aggiornamento data di scadenza e/o nome prodotto sul calendario\\
+        Output & Visualizzazione calendario aggiornato\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF07} & \textbf{Aggiunta alimenti in lista della spesa}\\
+        \midrule
+        Input & Nome alimento da acquistare\\
+        Processo & Salvataggio su memoria e database della lista della spesa\\
+        Output & Visualizzazione lista della spesa\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF08} & \textbf{Rimozione alimenti in lista della spesa}\\
+        \midrule
+        Input & Click su pulsante “Delete”\\
+        Processo & Eliminazione alimento dalla lista e dal database della lista della spesa\\
+        Output & Visualizzazione aggiornata lista della spesa\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF09} & \textbf{Alimento in lista della spesa comprato}\\
+        \midrule
+        Input & Utente clicca sulla checkbox che segnala l’acquisto di un elemento nella lista della spesa\\
+        Processo & Viene azionata la stessa procedura che implementa il requisito \textbf{RF01}\\
+        Output & Visualizzazione alimenti e aggiornamento lista della spesa\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF10} & \textbf{Pulizia lista della spesa}\\
+        \midrule
+        Input & Click sul pulsante “Clear” della lista della spesa\\
+        Processo & Rimozione dalla lista della spesa, sia in memoria che in database, degli alimenti già acquistati\\
+        Output & Visualizzazione lista della spesa aggiornata\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF11} & \textbf{Visualizzazione ricette memorizzate}\\
+        \midrule
+        Input & \makecell{Click sul pulsante “Recipe” nella dispensa e all’interno della schermata “Recipe” attraverso \\ le frecce di navigazione è possibile passare da una ricetta alla successiva}\\
+        Processo & Caricamento dal database delle ricette\\
+        Output & Visualizzazione ricette\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF12} & \textbf{Aggiunta ricette}\\
+        \midrule
+        Input & \makecell{Click su pulsante “Add” e inserimento dati ricetta - titolo, durata, numero porzioni, \\ categoria, lista dei tag, lista ingredienti, procedimento ricetta}\\
+        Processo & Salvataggio su database e in memoria della ricetta\\
+        Output & Visualizzazione ricetta\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF13} & \textbf{Modifica dati ricetta}\\
+        \midrule
+        Input & Modifiche su dati ricetta\\
+        Processo & Salvataggio in memoria e database dei dati della ricetta aggiornati\\
+        Output & Visualizzazione ricetta aggiornata\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF14} & \textbf{Controllo disponibilità ingredienti}\\
+        \midrule
+        Input & Visualizzazione ricetta o modifica della stessa\\
+        Processo & Confronto fra i prodotti in dispensa e gli ingredienti necessari per la ricetta\\
+        Output & Visualizzazione ingredienti disponibili e non disponibili per la ricetta attuale\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF15} & \textbf{Eliminazione ricetta}\\
+        \midrule
+        Input & Click sul pulsante “Delete” nella schermata delle ricette\\
+        Processo & Rimozione da memoria e database della ricetta attuale\\
+        Output & \makecell{Visualizzazione di un’altra ricetta o aggiunta di una nuova ricetta vuota se non ci sono più \\ ricette}\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF16} & \textbf{Import ricette da file}\\
+        \midrule
+        Input & File contenente una lista di ricette\\
+        Processo & Salvataggio in memoria e database dei dati della ricette sul file importato\\
+        Output & Visualizzazione ricette importate\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+    \begin{flushleft}
+      \begin{tabular}{l|l}
+        \toprule
+        \textbf{RF17} & \textbf{Export ricette su file}\\
+        \midrule
+        Input & Click su pulsante “Export”\\
+        Processo & Creazione di un file su cui sono memorizzate le ricette presenti in database\\
+        Output & File con lista delle ricette\\
+        \bottomrule
+      \end{tabular}
+    \end{flushleft}
+\end{table}
+
+\newpage
+
+\section{Requisiti non funzionali}
+
+Essi descrivono le caratteristiche che l'applicazione deve avere che non sono direttamente collegate alle operazioni che esegue.
+
+\begin{table}[H]
+  \begin{flushleft}
+    \begin{tabular}{l|l}
+      \toprule
+      \textbf{RNF01} & \textbf{Tempi di risposta}\\
+      \midrule
+      Descrizione & \makecell{Il software dovrà garantire tempi di risposta minimi per tutte le operazioni,\\ consentendo agli utenti di interagire con l'applicazione in tempo reale}\\
+      \bottomrule
+    \end{tabular}
+  \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+  \begin{flushleft}
+    \begin{tabular}{l|l}
+      \toprule
+      \textbf{RNF02} & \textbf{Database (salvataggio dei dati)}\\
+      \midrule
+      Descrizione & \makecell{L'applicazione dovrà utilizzare un sistema di database affidabile e sicuro per garantire la \\ persistenza dei dati relativi ai prodotti nella dispensa, ai prodotti presenti nella lista della \\ spesa e alle ricette}\\
+      \bottomrule
+    \end{tabular}
+  \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+  \begin{flushleft}
+    \begin{tabular}{l|l}
+      \toprule
+      \textbf{RNF03} & \textbf{Portabilità}\\
+      \midrule
+      Descrizione & \makecell{L'applicazione deve essere progettata in modo da essere compatibile sia con i sistemi \\ Android che iOS}\\
+      \bottomrule
+    \end{tabular}
+  \end{flushleft}
+\end{table}
+
+\begin{table}[H]
+  \begin{flushleft}
+    \begin{tabular}{l|l}
+      \toprule
+      \textbf{RNF04} & \textbf{Integrazione con servizi di terze parti}\\
+      \midrule
+      Descrizione & Il sistema deve essere in grado di interagire con il calendario predefinito dell'utente\\
+      \bottomrule
+    \end{tabular}
+  \end{flushleft}
+\end{table}

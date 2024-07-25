@@ -1,0 +1,40 @@
+\chapter{ORM}
+
+Per la parte relativa al database si è scelto di utilizzare la tecnica ORM (Object-Relational Mapping) per facilitare l'integrazione di database relazionali con software aderenti al paradigma della programmazione orientata agli oggetti. L'ORM si pone infatti come layer intermedio fra un servizio (in questo caso l'applicazione) e il database utilizzato dal servizio (in questo caso MySQL). Di seguito verranno analizzati i vantaggi e gli svantaggi di tale tecnica, in che contesti è conveniente utilizzarla e perché si è scelto di implementarla nell'applicazione oggetto di questa tesi; infine saranno mostrati degli stress tests volti a confrontare le performance di ORM e JDBC.
+
+\section{Vantaggi}
+
+Usare la tecnica ORM risulta vantaggiosa in termini di:
+
+\begin{itemize}
+  \item produttività
+  \item progettazione del codice
+  \item testing
+  \item versatilità
+  \item gestione della cache 
+  \item sicurezza
+\end{itemize}
+
+Di seguito si analizza ognuno dei punti precedenti più nel dettaglio.
+
+Produttività: senza l'ORM, l'ingegnere del software che progetta l'applicazione deve occuparsi anche della scrittura del corrispondente codice SQL; in particolare, a seconda del database utilizzato, il linguaggio SQL specifico può essere diverso e deve essere conosciuto dal programmatore. La scrittura di statements SQL può richiedere molto tempo, delegandola all'ORM si permette all'ingegnere del software di occuparsi solo della parte di codice relativa al linguaggio a oggetti, riducendo il tempo necessario allo sviluppo dell'intera applicazione e, di conseguenza, il suo time-to-market. L'ORM è quindi particolarmente indicato per i progetti che hanno vincoli di tempo cruciali per il successo del prodotto, come per esempio nel caso di prodotti che devono essere lanciati per la prima volta sul mercato.
+
+Progettazione del codice: nel momento in cui si implementa correttamente l'ORM, esso induce anche l'utilizzo di design patterns che fanno uso di best practices per la progettazione dell'applicazione. Si ottiene quindi un codice meglio strutturato e più facilmente comprensibile, ciò semplifica anche la sua manutenzione, che è l'aspetto chiave per il successo (anche in termini economici) del software.
+
+Testing: dal momento che l'ORM si occupa di generare il codice SQL necessario, una volta che è stato testato il codice per l'accesso ai dati, non è necessario testarlo nuovamente a meno che non venga cambiata la logica con cui i dati sono acceduti. 
+
+Versatilità: la generazione del codice ad opera dell'ORM permette di cambiare facilmente database senza la necessità di modificare il codice; nel caso specifico dell'applicazione in esame, è possibile passare facilmente da MySQL (utilizzato per la versione desktop) a SQLite per una versione mobile. Sarà infatti l'ORM che si occuperà della generazione del codice nell'SQL proprio del nuovo database selezionato.
+
+Gestione della cache: essendo le entità salvate in memoria è necessario meno tempo per il loro caricamento sul database.
+
+In generale, come linea guida si può affermare che l'utilizzo di ORM sia particolarmente indicato nel caso in cui gli oggetti e le modalità di accesso ad essi non siano particolarmente complessi. Per query semplici, come per esempio la restituzione di oggetti dal database, l'impiego di ORM permette di risparmiare molto tempo. Sebbene vi siano diversi ORM (fra cui Hibernate) che permettono di accedere alla connessione al database molto facilmente, se vi è necessità di numeroso codice SQL specifico dell'applicazione il rischio è quello di non sfruttare appieno l'ORM (il cui obiettivo è proprio minimizzare la scrittura di codice SQL).
+
+Sicurezza: se non c'è una appropriata validazione dei valori in input (come possono essere, ad esempio, quelli dei cookies) prima di passarli a delle query SQL eseguite dal database, ci si espone al rischio di un attacco tramite SQL injection, una delle più semplici e potenzialmente una delle più pericolose minacce per la sicurezza di un'applicazione. Questa eventualità può essere scongiurata tramite l'utilizzo di un ORM (a patto che non vi sia del puro SQL in altre parti dell'applicazione), tuttavia non è strettamente necessario ed uno sviluppatore esperto può facilmente risolvere questo problema senza il bisogno di ricorrere a un ORM.
+
+\section{Svantaggi}
+
+TODO.
+
+\section{Stress test}
+
+TODO.

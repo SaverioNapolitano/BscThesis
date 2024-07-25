@@ -1,0 +1,164 @@
+\chapter{Design Pattern}
+
+L'applicazione implementa diversi Design Pattern per garantire una manutenzione più agevole del codice, rendere il software più modulare semplificando l'aggiunta di nuove funzionalità, consentire la parallelizzazione dello sviluppo.
+
+\section{Factory}
+
+Il design pattern Factory ha il compito di occuparsi della creazione dei prodotti. L'utilizzo di questo design permette di evitare di programmare verso le implementazioni concrete, favorendo la programmazione verso le interfacce. Senza di esso, quando in futuro dovranno essere apportare modifiche o estensioni, sarebbe necessario riaprire il codice e cambiarlo di conseguenza (violando quindi l'open-closed principle). Incapsulare la creazione dei prodotti in una apposita classe permette di evitare questo scenario, oltre a facilitare la manutenzione e l'aggiornamento dell'applicazione: le modifiche sono infatti localizzate unicamente nella classe Factory, mentre in mancanza di essa sarebbe necessario cambiare manualmente tutti i punti del codice in cui c'è un "new" di un prodotto. L'utilizzo del design pattern Factory rispetta inoltre il dependency inversion principle. 
+
+\begin{lstlisting}
+  // Beverage.java
+  public abstract class Beverage extends Product{
+    boolean sweet;
+    public Beverage(String name, LocalDate expirationDate, 
+    int quantity, double price, String category){
+      super(name, expirationDate, quantity, price, category);
+    }
+  }
+  // SweetBeverage.java
+  public class SweetBeverage extends Beverage{
+	  public SweetBeverage(String name, LocalDate expirationDate,
+      int quantity, double price, String category) {
+		  super(name, expirationDate, quantity, price, category);
+		  sweet = true;
+	  }
+  }
+
+  
+  // ProductFactory.java
+  public abstract class ProductFactory {
+	public abstract Product createProduct(String name, 
+    LocalDate expirationDate, int quantity, double price,
+	String category);
+  }
+  // ConcreteProductFactory.java
+  public class ConcreteProductFactory extends ProductFactory{
+    @Override
+    public Product createProduct(String name, LocalDate expirationDate,
+    int quantity, double price, String category) {
+      if("sweet beverage".equals(category)){
+        return new SweetBeverage(name, expirationDate, quantity,
+         price, category);
+      } else if("non sweet beverage".equals(category)){
+        return new NonSweetBeverage(name, expirationDate, quantity,
+         price, category);
+      } else if("generic product".equals(category)){
+        return new GenericProduct(name, expirationDate, quantity,
+         price, category);
+      } else if("vegetarian product".equals(category)){
+        return new VegetarianProduct(name, expirationDate, quantity,
+         price, category);
+      } else if("vegan product".equals(category)){
+        return new VeganProduct(name, expirationDate, quantity,
+         price, category);
+      } else return null;
+    }
+  }
+\end{lstlisting}
+
+Si noti come, nella classe \inlinecode{Java}{ConcreteProductFactory}, sia stata utilizzata una tecnica di defensive programming per evitare una \inlinecode{Java}{NullPointerException}.
+
+\section{Iterator}
+
+Il design pattern Iterator consente di incapsulare il modo di iterare su una collezione di elementi, nascondendo l'implementazione interna della struttura dati e fornendo un modo unico per navigare attraverso tipi di dato diversi (a patto che implementino l'iterator). Questo design pattern permette di programmare verso le interfacce, disaccoppiando il codice che si occupa di svolgere l'iterazione dalle classi concrete su cui itera. Java ha un proprio iterator e la maggior parte delle collezioni di oggetti implementa la sua interfaccia, pertanto è sufficiente utilizzare i metodi già offerti dalla libreria standard.
+
+\begin{lstlisting}
+  public class Recipe implements Observer{
+    List<Product> ingredients;
+    // other attributes and methods of the class
+    public void checkIngredientAvailability(Product p){
+      for(Iterator<Product> iterator = ingredients.iterator();
+      iterator.hasNext();){  
+          Product product = iterator.next();
+          // method implementation  
+        }
+    }
+  }
+\end{lstlisting}
+
+\section{Observer}
+
+Il design pattern Observer permette agli oggetti di essere notificati quando qualcosa di loro interesse cambia. Questo design pattern permette di programmare verso le interfacce, svincolandosi dalle implementazioni concrete ed evitando di violare l'open-closed principle tramite l'incapsulamento di ciò che varia e la sua separazione da ciò che non varia. Applicando questo design pattern si ottiene inoltre una riduzione dell'accoppiamento tra le classi che vengono osservate e le classi che osservano. Per esempio, le ricette possono osservare la dispensa in modo da essere notificate quando un prodotto viene aggiunto o rimosso e poter aggiornare la disponibilità degli ingredienti. 
+
+\begin{lstlisting}
+  public class Pantry implements Subject {
+    List<Observer> observers = new ArrayList<>();
+    ProductFactory productFactory;
+    // other attributes and methods of the class
+    public void addProduct(String name, LocalDate expirationDate, int quantity, double price, String category){
+      Product p = productFactory.createProduct(name, expirationDate, quantity, price, category);
+      // method implementation
+      notify(p);
+    }
+    public void notify(Product p){
+      for(Iterator<Observer> iterator = observers.iterator(); iterator.hasNext()){
+        Observer observer = iterator.next();
+        observer.update(p);
+      }
+    }
+  }
+  public class Recipe implements Observer {
+    // attributes and methods of the class
+    public void update(Product p){
+      checkIngredientAvailability(p);
+    }
+  }
+\end{lstlisting}
+
+\section{Singleton}
+
+Per la connessione al database si utilizza il design Pattern Singleton in modo da garantire l'unicità dell'istanza creata e un punto di accesso globale a questa istanza. Applicando questo design pattern si rispetta il dependency inversion principle, poiché si dipende da una interfaccia per la connessione al database: in questo modo modifiche nell'implementazione concreta del database non impatteranno sulle classi che ne fanno uso. Inoltre rispetta anche l'open-closed principle, in quanto per aggiungere un nuovo database basterà creare una nuova classe che implementi l'interfaccia senza dover modificare il codice relativo alle implementazioni precedenti.
+
+\section{Decorator}
+
+Il design pattern Decorator permette di aggiungere funzionalità (metodi o attributi) agli oggetti dinamicamente. Esso rispetta il principio di programmazione che afferma di favorire la composizione rispetto all'ereditarietà. In questo modo si hanno classi meno accoppiate tra loro, la manutenzione del codice è più semplice, il codice è più flessibile (estensioni future non violeranno l'open-closed principle). Nello specifico, il design pattern è applicato ai prodotti: in questo modo si potranno gestire agevolmente aggiunte e modifiche future, siano esse relative agli attributi dei prodotti o ad operazioni riservate solo a particolari tipologie di prodotti.
+
+\begin{lstlisting}
+  // Product.java
+  public abstract class Product {
+    String name;
+    LocalDate expirationDate;
+    String category;
+    int quantity;
+    double price;
+    public Product(String name, LocalDate expirationDate,
+    int quantity, double price, String category) {
+      this.name = name;
+      this.expirationDate = expirationDate;
+      this.quantity = quantity;
+      this.price = price;
+      this.category = category;
+    }
+    // other methods' implementation
+  }
+  // GenericProduct.java
+  public class GenericProduct extends Food{
+	  public GenericProduct(String name, LocalDate expirationDate,
+    int quantity, double price, String category) {
+		  super(name, expirationDate, quantity, price, category);
+	  }
+  }
+  // ProductDecorator.java
+  public abstract class ProductDecorator {
+    Product product;
+    public ProductDecorator(Product product) {
+      this.product = product;
+    }
+  }
+  // FreshProductDecorator.java
+  public class FreshProductDecorator extends ProductDecorator{
+	  boolean fresh;
+	  public FreshProductDecorator(Product product) {
+		  super(product);
+		  fresh = true;
+	  }
+  }
+  // GlutenFreeProductDecorator.java
+  public class GlutenFreeProductDecorator extends ProductDecorator{
+    boolean glutenFree;
+    public GlutenFreeProductDecorator(Product product) {
+      super(product);
+      glutenFree = true;
+    }
+  }
+\end{lstlisting}
