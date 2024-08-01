@@ -84,7 +84,7 @@ Essi descrivono le funzionalità che il sistema deve offrire, intendendo con que
         \textbf{RF04} & \textbf{Ordinamento prodotti in dispensa per data di scadenza}\\
         \midrule
         Input & Click sulla colonna “Expiration Date”\\
-        Processo & Ordinamento prodotti in modo crescente o decrescente in base alla data di scadenza\\
+        Processo & \makecell{Ordinamento prodotti in modo crescente o decrescente in base \\ alla data di scadenza}\\
         Output & Visualizzazione prodotti ordinati\\
         \bottomrule
       \end{tabular}
@@ -167,7 +167,7 @@ Essi descrivono le funzionalità che il sistema deve offrire, intendendo con que
         \toprule
         \textbf{RF09} & \textbf{Alimento in lista della spesa comprato}\\
         \midrule
-        Input & Utente clicca sulla checkbox che segnala l’acquisto di un elemento nella lista della spesa\\
+        Input & \makecell{Utente clicca sulla checkbox che segnala l’acquisto di un elemento \\ nella lista della spesa}\\
         Processo & Viene azionata la stessa procedura che implementa il requisito \textbf{RF01}\\
         Output & Visualizzazione alimenti e aggiornamento lista della spesa\\
         \bottomrule
@@ -182,7 +182,7 @@ Essi descrivono le funzionalità che il sistema deve offrire, intendendo con que
         \textbf{RF10} & \textbf{Pulizia lista della spesa}\\
         \midrule
         Input & Click sul pulsante “Clear” della lista della spesa\\
-        Processo & Rimozione dalla lista della spesa, sia in memoria che in database, degli alimenti già acquistati\\
+        Processo & \makecell{Rimozione dalla lista della spesa, sia in memoria che in database, \\ degli alimenti già acquistati}\\
         Output & Visualizzazione lista della spesa aggiornata\\
         \bottomrule
       \end{tabular}
@@ -195,7 +195,7 @@ Essi descrivono le funzionalità che il sistema deve offrire, intendendo con que
         \toprule
         \textbf{RF11} & \textbf{Visualizzazione ricette memorizzate}\\
         \midrule
-        Input & \makecell{Click sul pulsante “Recipe” nella dispensa e all’interno della schermata “Recipe” attraverso \\ le frecce di navigazione è possibile passare da una ricetta alla successiva}\\
+        Input & \makecell{Click sul pulsante “Recipe” nella dispensa e all’interno della schermata \\ “Recipe” attraverso le frecce di navigazione è possibile passare da una \\ ricetta alla successiva}\\
         Processo & Caricamento dal database delle ricette\\
         Output & Visualizzazione ricette\\
         \bottomrule
@@ -209,7 +209,7 @@ Essi descrivono le funzionalità che il sistema deve offrire, intendendo con que
         \toprule
         \textbf{RF12} & \textbf{Aggiunta ricette}\\
         \midrule
-        Input & \makecell{Click su pulsante “Add” e inserimento dati ricetta - titolo, durata, numero porzioni, \\ categoria, lista dei tag, lista ingredienti, procedimento ricetta}\\
+        Input & \makecell{Click su pulsante “Add” e inserimento dati ricetta - titolo, durata, \\ numero porzioni, categoria, lista dei tag, lista ingredienti, procedimento ricetta}\\
         Processo & Salvataggio su database e in memoria della ricetta\\
         Output & Visualizzazione ricetta\\
         \bottomrule
@@ -253,7 +253,7 @@ Essi descrivono le funzionalità che il sistema deve offrire, intendendo con que
         \midrule
         Input & Click sul pulsante “Delete” nella schermata delle ricette\\
         Processo & Rimozione da memoria e database della ricetta attuale\\
-        Output & \makecell{Visualizzazione di un’altra ricetta o aggiunta di una nuova ricetta vuota se non ci sono più \\ ricette}\\
+        Output & \makecell{Visualizzazione di un’altra ricetta o aggiunta di una nuova \\ ricetta vuota se non ci sono più ricette}\\
         \bottomrule
       \end{tabular}
     \end{flushleft}
@@ -311,7 +311,8 @@ Essi descrivono le caratteristiche che l'applicazione deve avere che non sono di
       \toprule
       \textbf{RNF02} & \textbf{Database (salvataggio dei dati)}\\
       \midrule
-      Descrizione & \makecell{L'applicazione dovrà utilizzare un sistema di database affidabile e sicuro per garantire la \\ persistenza dei dati relativi ai prodotti nella dispensa, ai prodotti presenti nella lista della \\ spesa e alle ricette}\\
+      Descrizione & \makecell{L'applicazione dovrà utilizzare un sistema di database affidabile e sicuro \\ per garantire la persistenza dei dati relativi ai prodotti nella dispensa, \\
+      ai prodotti presenti nella lista della spesa e alle ricette}\\
       \bottomrule
     \end{tabular}
   \end{flushleft}
@@ -323,7 +324,7 @@ Essi descrivono le caratteristiche che l'applicazione deve avere che non sono di
       \toprule
       \textbf{RNF03} & \textbf{Portabilità}\\
       \midrule
-      Descrizione & \makecell{L'applicazione deve essere progettata in modo da essere compatibile sia con i sistemi \\ Android che iOS}\\
+      Descrizione & \makecell{L'applicazione deve essere progettata in modo da essere compatibile \\ sia con i sistemi Android che iOS}\\
       \bottomrule
     \end{tabular}
   \end{flushleft}
@@ -335,7 +336,7 @@ Essi descrivono le caratteristiche che l'applicazione deve avere che non sono di
       \toprule
       \textbf{RNF04} & \textbf{Integrazione con servizi di terze parti}\\
       \midrule
-      Descrizione & Il sistema deve essere in grado di interagire con il calendario predefinito dell'utente\\
+      Descrizione & \makecell{Il sistema deve essere in grado di interagire con il calendario predefinito \\ dell'utente}\\
       \bottomrule
     \end{tabular}
   \end{flushleft}
