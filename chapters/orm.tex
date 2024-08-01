@@ -35,8 +35,36 @@ Sicurezza: se non c'è una appropriata validazione dei valori in input (come pos
 
 \section{Svantaggi}
 
-TODO.
+Fra gli svantaggi da considerare se si utilizza l'ORM vi sono:
 
+\begin{itemize}
+\item performance overhead
+\item controllo limitato
+\item curva di apprendimento
+\item problematiche di astrazione
+\item problemi di scalabilità
+\item problemi di compatibilità
+\item complessità del mapping
+\item problemi di sicurezza
+\end{itemize}
+
+Di seguito si analizza ognuno dei punti precedenti più nel dettaglio.
+
+Performance overhead: l'ORM genera spesso query SQL complesse che possono essere meno efficienti rispetto a query SQL scritte direttamente, questo si nota soprattutto con datasets molto grandi o operazioni complesse.
+
+Controllo limitato: adattare le query SQL in funzione delle performance è più difficile con l'ORM, dal momento che esso astrae l'SQL sottostante. Inoltre l'ORM fornisce un approccio comune a tutti i database, limitando l'uso di funzionalità avanzate specifiche di un certo DBMS ed eventuali ottimizzazioni.
+
+Curva di apprendimento: imparare come un ORM mappa l'SQL può essere complesso, comprendere le implicazioni sulle performance e le best practices richiede molto tempo. Identificare problemi durante il debugging può essere più difficile poiché gli sviluppatori devono avere cognizione sia delle astrazioni dell'ORM che delle query SQL sottostanti che esso genera.
+
+Problematiche di astrazione: le differenze concettuali tra la programmazione orientata agli oggetti e i database relazionali può portare a modelli inefficienti, inoltre il comportamento dell'ORM potrebbe differire da quello atteso, specialmente quando si trova a gestire query personalizzate o relazioni complesse fra le entità.
+
+Problemi di scalabilità: l'ORM può incontrare difficoltà legate alla scalabilità con datasets molto grandi o applicazioni fortemente concorrenti, dove l'ottimizzazione di query e database è cruciale.
+
+Problemi di compatibilità: mantenere la libreria ORM aggiornata con la versione del database può essere difficile, gli aggiornamenti possono causare l'insorgere di incompatibilità. Inoltre i cambiamenti nella stessa libreria ORM possono introdurre modifiche che richiedono un refactoring significativo del codice.
+
+Complessità del mapping: gestire concetti complessi legati alla programmazione orientata agli oggetti come ereditarietà e polimorfismo può essere inefficiente in un contesto come quello dei database relazionali che non li prevedono, inoltre modificare lo schema del database in parallelo con gli oggetti che vengono memorizzati può essere complesso e condurre facilmente ad errori; è pertanto necessario pianificare delle accorte strategie di migrazione.
+
+Problemi di sicurezza: una configurazione errata o un utilizzo improprio dell'ORM può comunque introdurre vulnerabilità, inoltre le query generate automaticamente potrebbero non essere state accuratamente testate per determinate funzioni di sicurezza rispetto a query SQL scritte a mano.
 \section{Stress test}
 
 TODO.
