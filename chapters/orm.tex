@@ -13,25 +13,29 @@ Usare la tecnica ORM risulta vantaggiosa in termini di:
   \item versatilità
   \item gestione della cache 
   \item sicurezza
+  \item ecosistema
+  \item gestione delle query
 \end{itemize}
 
 Di seguito si analizza ognuno dei punti precedenti più nel dettaglio.
 
-Produttività: senza l'ORM, l'ingegnere del software che progetta l'applicazione deve occuparsi anche della scrittura del corrispondente codice SQL; in particolare, a seconda del database utilizzato, il linguaggio SQL specifico può essere diverso e deve essere conosciuto dal programmatore. La scrittura di statements SQL può richiedere molto tempo, delegandola all'ORM si permette all'ingegnere del software di occuparsi solo della parte di codice relativa al linguaggio a oggetti, riducendo il tempo necessario allo sviluppo dell'intera applicazione e, di conseguenza, il suo time-to-market. L'ORM è quindi particolarmente indicato per i progetti che hanno vincoli di tempo cruciali per il successo del prodotto, come per esempio nel caso di prodotti che devono essere lanciati per la prima volta sul mercato.
+Produttività: senza l'ORM, l'ingegnere del software che progetta l'applicazione deve occuparsi anche della scrittura del corrispondente codice SQL; in particolare, a seconda del database utilizzato, il linguaggio SQL specifico può essere diverso e deve essere conosciuto dal programmatore. La scrittura di statements SQL può richiedere molto tempo, delegandola all'ORM si permette all'ingegnere del software di occuparsi solo della parte di codice relativa al linguaggio a oggetti, riducendo il tempo necessario allo sviluppo dell'intera applicazione e, di conseguenza, il suo time-to-market. L'ORM è quindi particolarmente indicato per i progetti che hanno vincoli di tempo cruciali per il successo del prodotto, come per esempio nel caso di prodotti che devono essere lanciati per la prima volta sul mercato. Permette inoltre di gestire automaticamente operazioni comuni come CRUD (Create, Read, Update, Delete), con conseguente risparmio di tempo e impegno. 
 
-Progettazione del codice: nel momento in cui si implementa correttamente l'ORM, esso induce anche l'utilizzo di design patterns che fanno uso di best practices per la progettazione dell'applicazione. Si ottiene quindi un codice meglio strutturato e più facilmente comprensibile, ciò semplifica anche la sua manutenzione, che è l'aspetto chiave per il successo (anche in termini economici) del software.
+Progettazione del codice: nel momento in cui si implementa correttamente l'ORM, esso induce anche l'utilizzo di design patterns che fanno uso di best practices per la progettazione dell'applicazione. Si ottiene quindi un codice meglio strutturato e più facilmente comprensibile, ciò semplifica anche la sua manutenzione, che è l'aspetto chiave per il successo (anche in termini economici) del software e il suo aggiornamento.
 
-Testing: dal momento che l'ORM si occupa di generare il codice SQL necessario, una volta che è stato testato il codice per l'accesso ai dati, non è necessario testarlo nuovamente a meno che non venga cambiata la logica con cui i dati sono acceduti. 
+Testing: dal momento che l'ORM si occupa di generare il codice SQL necessario, una volta che è stato testato il codice per l'accesso ai dati, non è necessario testarlo nuovamente a meno che non venga cambiata la logica con cui i dati sono acceduti. Molti ORM permettono inoltre di gestire i test in maniera tale da garantire che non lascino dati residui nel database.
 
 Versatilità: la generazione del codice ad opera dell'ORM permette di cambiare facilmente database senza la necessità di modificare il codice; nel caso specifico dell'applicazione in esame, è possibile passare facilmente da MySQL (utilizzato per la versione desktop) a SQLite per una versione mobile. Sarà infatti l'ORM che si occuperà della generazione del codice nell'SQL proprio del nuovo database selezionato.
 
-Gestione della cache: essendo le entità salvate in memoria è necessario meno tempo per il loro caricamento sul database.
+Gestione della cache: essendo le entità salvate in memoria è necessario meno tempo per il loro caricamento sul database e si riduce il numero di query effettuate.
 
 In generale, come linea guida si può affermare che l'utilizzo di ORM sia particolarmente indicato nel caso in cui gli oggetti e le modalità di accesso ad essi non siano particolarmente complessi. Per query semplici, come per esempio la restituzione di oggetti dal database, l'impiego di ORM permette di risparmiare molto tempo. Sebbene vi siano diversi ORM (fra cui Hibernate) che permettono di accedere alla connessione al database molto facilmente, se vi è necessità di numeroso codice SQL specifico dell'applicazione il rischio è quello di non sfruttare appieno l'ORM (il cui obiettivo è proprio minimizzare la scrittura di codice SQL).
 
-Sicurezza: se non c'è una appropriata validazione dei valori in input (come possono essere, ad esempio, quelli dei cookies) prima di passarli a delle query SQL eseguite dal database, ci si espone al rischio di un attacco tramite SQL injection, una delle più semplici e potenzialmente una delle più pericolose minacce per la sicurezza di un'applicazione. Questa eventualità può essere scongiurata tramite l'utilizzo di un ORM (a patto che non vi sia del puro SQL in altre parti dell'applicazione), tuttavia non è strettamente necessario ed uno sviluppatore esperto può facilmente risolvere questo problema senza il bisogno di ricorrere a un ORM.
+Sicurezza: se non c'è una appropriata validazione dei valori in input (come possono essere, ad esempio, quelli dei cookies) prima di passarli a delle query SQL eseguite dal database, ci si espone al rischio di un attacco tramite SQL injection, una delle più semplici e potenzialmente una delle più pericolose minacce per la sicurezza di un'applicazione. Questa eventualità può essere scongiurata tramite l'utilizzo di un ORM (a patto che non vi sia del puro SQL in altre parti dell'applicazione) dal momento che spesso fa uso di query parametrizzate, tuttavia non è strettamente necessario ed uno sviluppatore esperto può facilmente risolvere questo problema senza il bisogno di ricorrere a un ORM.
 
-\newpage
+Ecosistema: ORM popolari hanno spesso ampie communities, offrono plugins, estensioni e supporto che possono accelerare lo sviluppo dell'applicazione.
+
+Gestione delle query: molti ORM offrono costruttori di query o linguaggi specifici per un particolare dominio, che semplificano la creazione di query complesse rendendole più leggibili e mantenibili.
 
 \section{Svantaggi}
 
@@ -65,10 +69,22 @@ Problemi di compatibilità: mantenere la libreria ORM aggiornata con la versione
 Complessità del mapping: gestire concetti complessi legati alla programmazione orientata agli oggetti come ereditarietà e polimorfismo può essere inefficiente in un contesto come quello dei database relazionali che non li prevedono, inoltre modificare lo schema del database in parallelo con gli oggetti che vengono memorizzati può essere complesso e condurre facilmente ad errori; è pertanto necessario pianificare delle accorte strategie di migrazione.
 
 Problemi di sicurezza: una configurazione errata o un utilizzo improprio dell'ORM può comunque introdurre vulnerabilità, inoltre le query generate automaticamente potrebbero non essere state accuratamente testate per determinate funzioni di sicurezza rispetto a query SQL scritte a mano.
+
 \section{Stress test}
 
-TODO.
+Di seguito vengono proposti una serie di test volti a verificare la differenza di prestazioni fra l'applicazione che non fa uso di ORM e la versione dell'applicazione che lo utilizza. In particolare, si considera come task l'inserimento di prodotti nel database.
 
-\section{Conclusioni}
+\begin{table}[h!]
+  \begin{center}
+    \begin{tabular}{l|c|r} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \textbf{Numero di prodotti} & \textbf{Tempo (Non-ORM)} & \textbf{Tempo (ORM)}\\
+      \hline
+      1K & $\sim$ 0.6 secondi & $\sim$ 1.5 secondi\\
+      10K & $\sim$ 2 secondi & $\sim$ 4 secondi\\
+      100K & $\sim$ 14 secondi & $\sim$ 25 secondi\\
+      1M & $\sim$ 134 secondi & $\sim$ 231 secondi\\
+    \end{tabular}
+  \end{center}
+\end{table}
 
-TODO.
+Appare evidente come l'overhead in caso di grandi quantità di dati appaia non trascurabile e risulti nell'impossibilità pratica di utilizzare l'ORM. Tuttavia, nel caso di quantità di dati relativamente ridotte, seppur presente esso è impercettebile per l'utente. Nel caso in esame, essendo gli oggetti inseriti nel database i prodotti presenti nella dispensa di un utente, è improbabile che si raggiungano numeri tali da far sperimentare all'utilizzatore dell'applicazione un evidente calo di prestazioni, mentre per il programmatore l'utilizzo di ORM semplifica notevolmente lo sviluppo, la manutenzione e il testing del codice.
