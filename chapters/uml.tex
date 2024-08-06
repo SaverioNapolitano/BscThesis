@@ -29,8 +29,6 @@ Per ciascuno di essi verrà offerta una breve panoramica che includerà:
 
 Lo use case diagram permette di identificare gli attori che interagiscono col sistema e le attività che essi possono svolgere. Lo scopo è descrivere le principali funzionalità del software.
 
-TODO FORSE ALLUNGARE IL BRODO.
-
 \newpage
 
 \section{Activity diagram}
@@ -47,8 +45,6 @@ In questo diagramma viene mostrato il processo relativo all'interazione fra l'ut
     \label{fig:actpantry}
 \end{figure}
 
-TODO FORSE ALLUNGARE IL BRODO.
-
 \newpage
 
 \subsection{Activity diagram della lista della spesa}
@@ -61,8 +57,6 @@ In questo diagramma viene mostrato il processo relativo all'interazione fra l'ut
     \label{fig:actshoplist}
 \end{figure}
 
-TODO FORSE ALLUNGARE IL BRODO.
-
 \newpage
 
 \subsection{Activity diagram delle ricette}
@@ -74,8 +68,6 @@ In questo diagramma viene mostrato il processo relativo all'interazione fra l'ut
     \caption{Diagramma delle attività delle ricette.}
     \label{fig:actrecipe}
 \end{figure}
-
-TODO FORSE ALLUNGARE IL BRODO.
 
 \newpage
 
@@ -93,8 +85,6 @@ In questo diagramma vengono mostrati gli stati in cui si può trovare una ricett
     \label{fig:staterecipe}
 \end{figure}
 
-TODO FORSE ALLUNGARE IL BRODO.
-
 \newpage
 
 \subsection{State diagram della lista della spesa}
@@ -106,8 +96,6 @@ In questo diagramma vengono mostrati gli stati in cui si può trovare un prodott
     \caption{Diagramma degli stati della lista della spesa.}
     \label{fig:stateshoplist}
 \end{figure}
-
-TODO FORSE ALLUNGARE IL BRODO.
 
 \newpage
 
@@ -129,7 +117,31 @@ Per non complicare ulteriormente il diagramma si è scelto di non rappresentare 
 
 Il sequence diagram serve per descrivere singoli scenari dell'applicazioni. Lo scopo è mostrare come il sistema svolge le proprie funzioni. Per una migliore comprensione del funzionamento, nei diagrammi seguenti si è scelto di non modellare i casi di errore del database e dell'interfaccia grafica. 
 
-TODO ALLUNGARE IL BRODO.
+Gli elementi principali di un sequence diagram, usati in tutti gli esempi successivi, comprendono:
+\begin{itemize}
+\item lifeline: rappresenta l'esistenza di un'entità in un dato istante della sequenza (utile quando un'entità è creata o eliminata durante una sequenza)
+\item entità: attore/parte che interagisce con altri attori/parti; sono dotate di un nome ed eventualmente di una classe
+\item messaggi: segnali che un partecipante (un'entità) invia ad un altro partecipante oppure provenienti da agenti esterni; possono essere specificati parametri, tipo del valore di ritorno
+\item frammenti: operatori usati per modellare varie strutture di controllo, permettono di rappresentare molteplici flussi di esecuzione in maniera compatta e precisa
+\item Esempi di frammenti utilizzati nei diagrammi seguenti
+\begin{itemize}
+    \item alt: rappresenta un \textit{if} con più condizioni (o \textit{guardie})
+    \item opt: rappresenta un \textit{if} con una sola condizione
+    \item loop: usato per modellare i cicli
+\end{itemize}
+\item Esempi di altri frammenti, usati per modellare l'ordine di esecuzione (seq, strict, par, critical) o l'occorrenza dei messaggi (ignore, consider, assert, neg)
+\begin{itemize}
+\item break: simboleggia la conclusione anticipata di un ciclo rispetto alla sua canonica esecuzione, spesso in seguito alla rilevazione di un'eccezione
+\item seq: rappresenta l'ordinamento di default (ordinamento debole)
+\item strict: rappresenta un ordinamento forte
+\item par: permette di separare l'ordine degli operandi rendendoli indipendenti l'uno dall'altro (e potenzialmente eseguibili contemporaneamente)
+\item critical: definisce un'area atomica nell'interazione, garantendo che essa non venga interrotta da eventi inaspettati
+\item ignore: indica che il messaggio ricevuto è irrilevante
+\item consider: indica che il messaggio ricevuto è di particolare importanza per l'interazione che si sta analizzando
+\item assert: usato per definire situazioni che devono avvenire
+\item neg: permette di modellare un'interazione invalida, come ad esempio i messaggi di errore
+\end{itemize}
+\end{itemize}
 
 \subsection{Sequence diagram della dispensa}
 
