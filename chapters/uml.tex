@@ -19,15 +19,29 @@ Per ciascuno di essi verrà offerta una breve panoramica che includerà:
     \item eventuali precisazioni/omissioni all'interno del diagramma e motivazione delle stesse
 \end{itemize}
 
+\newpage
+
 \section{Use case diagram}
+
+Lo use case diagram permette di identificare gli attori che interagiscono col sistema e le attività che essi possono svolgere. Lo scopo è descrivere le principali funzionalità del software.
+Nel caso in esame:
+\begin{itemize}
+\item gli attori sono l'utente e l'applicazione stessa
+\item i casi d'uso sono 
+\begin{itemize}
+\item gestione delle ricette e loro importazione/esportazione
+\item gestione della lista della spesa
+\item gestione della dispensa
+\end{itemize}
+\item ogni caso d'uso prevede la gestione degli errori che possono verificarsi, nonché l'esecuzione di alcune sub-routine necessarie per il corretto funzionamento dell'applicazione
+\end{itemize}
+
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{images/use-case.png}
     \caption{Diagramma dei casi d'uso.}
     \label{fig:usecase}
 \end{figure}
-
-Lo use case diagram permette di identificare gli attori che interagiscono col sistema e le attività che essi possono svolgere. Lo scopo è descrivere le principali funzionalità del software.
 
 \newpage
 
@@ -37,7 +51,12 @@ L'activity diagram consente di specificare come il sistema realizzerà le funzio
 
 \subsection{Activity diagram della dispensa}
 
-In questo diagramma viene mostrato il processo relativo all'interazione fra l'utente e l'applicazione per la gestione della dispensa. 
+In questo diagramma viene mostrato il processo relativo all'interazione fra l'utente e l'applicazione per la gestione della dispensa.
+In particolare, le azioni dell'utente sul prodotto:
+\begin{itemize} 
+    \item sono propagate sia in memoria che sul database per garantire la consistenza dei dati
+    \item hanno un impatto anche sulla generazione, modifica ed eliminazione delle notifiche sul calendario, per garantire che gli avvisi sulla scadenza dei prodotti siano coerenti con i dati dei prodotti stessi 
+\end{itemize}
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{images/activity-pantry.png}
@@ -50,6 +69,12 @@ In questo diagramma viene mostrato il processo relativo all'interazione fra l'ut
 \subsection{Activity diagram della lista della spesa}
 
 In questo diagramma viene mostrato il processo relativo all'interazione fra l'utente e l'applicazione per la gestione della lista della spesa.
+Si noti come:
+\begin{itemize}
+\item si faccia riferimento all'activity diagram precedente per evitare ripetizioni ed avere maggiore chiarezza in fase di modellazione e presentazione
+\item rispetto al diagramma delle attività della dispensa, in questo caso si modella anche lo stato del prodotto, dal momento che esso può variare in base all'azione effettuata dall'utente
+\item la struttura logica del diagramma sia molto simile a quella mostrata in precedenza, in quanto le azioni possibili sono quasi del tutto speculari
+\end{itemize}
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{images/activity-shopping-list.png}
@@ -62,6 +87,14 @@ In questo diagramma viene mostrato il processo relativo all'interazione fra l'ut
 \subsection{Activity diagram delle ricette}
 
 In questo diagramma viene mostrato il processo relativo all'interazione fra l'utente e l'applicazione per la gestione delle ricette, inclusa la possibilità di importare ed esportare ricette.
+Elementi distintivi rispetto ai due casi precedenti sono:
+\begin{itemize}
+\item la distinzione fra le due possibili casistiche (nessuna ricetta disponibile oppure almeno una ricetta salvata nel database) in modo da poter mostrare all'utente il risultato più adatto alle sue necessità, come una ricetta vuota in cui inserire i dati nel caso non siano presenti ricette (caso che si verifica, per esempio, al primo avvio dell'applicazione)
+\begin{itemize}
+\item si noti come nel caso di ricetta presente nel database, venga eseguita anche la sub-routine relativa al controllo della disponibilità degli ingredienti in modo da fornire all'utente la consapevolezza circa l'effettiva realizzabilità del piatto
+\end{itemize}
+\item la già citata possibilità di importazione ed esportazione, utile per favorire la condivisione reciproca di ricette personali o di nicchia permettendone una rapida espansione 
+\end{itemize}
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{images/activity-recipe.png}
