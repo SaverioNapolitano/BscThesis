@@ -111,7 +111,13 @@ Lo state diagram permette di modellare gli stati in cui si trova un oggetto e gl
 \subsection{State diagram della ricetta}
 
 In questo diagramma vengono mostrati gli stati in cui si può trovare una ricetta in base alla presenza, e alla disponibilità, degli ingredienti.
-
+L'obiettivo è fornire all'utente una panoramica immediata su:
+\begin{itemize}
+    \item ricette che può preparare con gli ingredienti attualmente a disposizione
+    \item ricette per cui manca un numero limitato di ingredienti per poter essere preparate
+    \item ricette per cui la cui maggioranza degli ingredienti non è disponibile
+\end{itemize}
+e mantenere questa informazione aggiornata in modo tale da poter aiutare l'utilizzatore dell'applicazione a decidere cosa fare in base ai vincoli (sia di ingredienti che di tempo) che deve rispettare.
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{images/state-recipe.png}
     \caption{Diagramma degli stati della ricetta.}
@@ -123,6 +129,14 @@ In questo diagramma vengono mostrati gli stati in cui si può trovare una ricett
 \subsection{State diagram della lista della spesa}
 
 In questo diagramma vengono mostrati gli stati in cui si può trovare un prodotto presente nella lista della spesa.
+Ciò permette all'utente di:
+\begin{itemize}
+    \item mantenere ordinata la lista della spesa, in particolare
+    \begin{itemize}
+        \item eliminando prodotti già acquistati, riducendo l'impatto visivo della lista e mettendo in evidenza i prodotti ancora da comprare
+        \item eliminando prodotti che si erano inseriti "per sbaglio" o per cui si è cambiata idea riguardo all'acquisto, garantendo flessibilità e adattabilità alle esigenze (dinamiche) dell'utente
+    \end{itemize}
+\end{itemize}
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{images/state-shopping-list.png}

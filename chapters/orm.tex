@@ -70,12 +70,15 @@ Complessità del mapping: gestire concetti complessi legati alla programmazione 
 
 Problemi di sicurezza: una configurazione errata o un utilizzo improprio dell'ORM può comunque introdurre vulnerabilità, inoltre le query generate automaticamente potrebbero non essere state accuratamente testate per determinate funzioni di sicurezza rispetto a query SQL scritte a mano.
 
-\section{Stress test}
+\newpage
 
-Di seguito vengono proposti una serie di test volti a verificare la differenza di prestazioni fra l'applicazione che non fa uso di ORM e la versione dell'applicazione che lo utilizza. In particolare, si considera come task l'inserimento di prodotti nel database.
+\section{Stress tests e conclusioni}
+
+Di seguito vengono proposti (prima in forma tabellare e poi in forma grafica) una serie di test volti a verificare la differenza di prestazioni fra l'applicazione che non fa uso di ORM e la versione dell'applicazione che lo utilizza. In particolare, si considera come task l'inserimento di prodotti nel database. 
 
 \begin{table}[h!]
   \begin{center}
+    \caption{Stress tests in forma tabellare.}
     \begin{tabular}{l|c|r} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
       \textbf{Numero di prodotti} & \textbf{Tempo (Non-ORM)} & \textbf{Tempo (ORM)}\\
       \hline
@@ -86,5 +89,11 @@ Di seguito vengono proposti una serie di test volti a verificare la differenza d
     \end{tabular}
   \end{center}
 \end{table}
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{images/stress-tests-diagram.png}
+  \caption{Stress tests in forma grafica.}
+  \label{fig:stresstests}
+\end{figure}
 
 Appare evidente come l'overhead in caso di grandi quantità di dati appaia non trascurabile e risulti nell'impossibilità pratica di utilizzare l'ORM. Tuttavia, nel caso di quantità di dati relativamente ridotte, seppur presente esso è impercettebile per l'utente. Nel caso in esame, essendo gli oggetti inseriti nel database i prodotti presenti nella dispensa di un utente, ed essendo le operazioni svolte su di essi molto semplici, è improbabile che si raggiungano numeri tali da far sperimentare all'utilizzatore dell'applicazione un evidente calo di prestazioni, mentre per il programmatore l'utilizzo di ORM semplifica notevolmente lo sviluppo, la manutenzione e il testing del codice.
