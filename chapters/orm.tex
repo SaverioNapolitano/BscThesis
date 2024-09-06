@@ -1,6 +1,6 @@
 \chapter{ORM}
 
-Per la parte relativa al database si è scelto di utilizzare la tecnica ORM (Object-Relational Mapping) per facilitare l'integrazione di database relazionali con software aderenti al paradigma della programmazione orientata agli oggetti. L'ORM si pone infatti come layer intermedio fra un servizio (in questo caso l'applicazione) e il database utilizzato dal servizio (in questo caso MySQL). Di seguito verranno analizzati i vantaggi e gli svantaggi di tale tecnica, in che contesti è conveniente utilizzarla e perché si è scelto di implementarla nell'applicazione oggetto di questa tesi; infine saranno mostrati degli stress tests volti a confrontare le performance di ORM e JDBC.
+Per la parte relativa al database si è scelto di utilizzare la tecnica ORM (Object-Relational Mapping) per facilitare l'integrazione di database relazionali con software aderenti al paradigma della programmazione orientata agli oggetti. L'ORM si pone infatti come layer intermedio fra un servizio (in questo caso l'applicazione) e il database utilizzato dal servizio (in questo caso MySQL). Di seguito verranno analizzati i vantaggi e gli svantaggi di tale tecnica, in che contesti è conveniente utilizzarla e perché si è scelto di implementarla nell'applicazione oggetto di questa tesi; infine saranno mostrati degli stress tests volti a confrontare le performance di ORM (in questo caso specifico si è utilizzato come applicativo Hibernate) e JDBC. Nel seguito, per preservare la generalità della trattazione, si farà riferimento ad "ORM" e "Non-ORM" per indicare rispettivamente Hibernate e JDBC.
 
 \section{Vantaggi}
 
@@ -72,15 +72,19 @@ Problemi di sicurezza: una configurazione errata o un utilizzo improprio dell'OR
 
 \newpage
 
-\section{Stress tests e conclusioni}
+\section{Stress tests}
 
-Di seguito vengono proposti (prima in forma tabellare e poi in forma grafica) una serie di test volti a verificare la differenza di prestazioni fra l'applicazione che non fa uso di ORM e la versione dell'applicazione che lo utilizza. In particolare, si considera come task l'inserimento di prodotti nel database. 
+Di seguito vengono proposti (prima in forma tabellare e poi in forma grafica) una serie di test volti a verificare la differenza di prestazioni fra l'applicazione che non fa uso di ORM e la versione dell'applicazione che lo utilizza.
+
+\subsection{Inserimento di prodotti nel database}
+
+Si consideri come task l'inserimento di prodotti nel database. Ogni prodotto inserito corrisponde ad una riga aggiunta nella tabella.
 
 \begin{table}[h!]
   \begin{center}
-    \caption{Stress tests in forma tabellare.}
+    \caption{Inserimento di prodotti nel database.}
     \begin{tabular}{l|c|r} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
-      \textbf{Numero di prodotti} & \textbf{Tempo (Non-ORM)} & \textbf{Tempo (ORM)}\\
+      \textbf{Numero di prodotti} & \textbf{Tempo (JDBC)} & \textbf{Tempo (ORM)}\\
       \hline
       1K & $\sim$ 0.6 secondi & $\sim$ 1.5 secondi\\
       10K & $\sim$ 2 secondi & $\sim$ 4 secondi\\
@@ -91,9 +95,96 @@ Di seguito vengono proposti (prima in forma tabellare e poi in forma grafica) un
 \end{table}
 
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{images/stress-tests-diagram.png}
-  \caption{Stress tests in forma grafica.}
-  \label{fig:stresstests}
+  \includegraphics[width=\linewidth]{images/insert-products.png}
+  \caption{Inserimento di prodotti nel database.}
+  \label{fig:insertproducts}
 \end{figure}
 
-Appare evidente come l'overhead in caso di grandi quantità di dati appaia non trascurabile e risulti nell'impossibilità pratica di utilizzare l'ORM. Tuttavia, nel caso di quantità di dati relativamente ridotte, seppur presente esso è impercettebile per l'utente. Nel caso in esame, essendo gli oggetti inseriti nel database i prodotti presenti nella dispensa di un utente, ed essendo le operazioni svolte su di essi molto semplici, è improbabile che si raggiungano numeri tali da far sperimentare all'utilizzatore dell'applicazione un evidente calo di prestazioni, mentre per il programmatore l'utilizzo di ORM semplifica notevolmente lo sviluppo, la manutenzione e il testing del codice.
+In caso di quantità di dati relativamente ridotte, l'overhead introdotto dall'ORM, seppur presente, risulta impercettebile per l'utente. Quando ci si trova a dover gestire quantità di dati elevate, emergono i problemi di scalabilità descritti precedentemente che si concretizzano nell'impossibilità pratica di usare l'applicazione.
+
+\newpage
+
+\subsection{Eliminazione di prodotti dal database}
+
+Si consideri come task l'eliminazione di prodotti dal database. Ogni prodotto eliminato corrisponde ad una riga rimossa dalla tabella.
+
+
+\begin{table}[h!]
+  \begin{center}
+    \caption{Eliminazione di prodotti dal database.}
+    \begin{tabular}{l|c|r} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \textbf{Numero di prodotti} & \textbf{Tempo (Non-ORM)} & \textbf{Tempo (ORM)}\\
+      \hline
+      1K & $\sim$ 0.6 secondi & $\sim$ 1.8 secondi\\
+      10K & $\sim$ 2 secondi & $\sim$ 5 secondi\\
+      100K & $\sim$ 14 secondi & $\sim$ 32.7 secondi\\
+      1M & $\sim$ 140 secondi & $\sim$ 312 secondi\\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{images/remove-products.png}
+  \caption{Eliminazione di prodotti dal database.}
+  \label{fig:removeproducts}
+\end{figure}
+
+Le prestazioni dell'applicazione che non fa uso di ORM sono simili a quelle ottenute con l'inserimento di prodotti nel database, mentre si osserva un discreto peggioramento dell'ORM. Ciò è dovuto al fatto che, mentre l'operazione di inserimento attraverso ORM consiste nell'aggiungere l'oggetto che si desidera inserire al contesto di persistenza e successivamente nel database, l'eliminazione richiede la riassociazione dell'oggetto che si desidera rimuovere al contesto di persistenza dell'applicazione, la rimozione effettiva dello stesso dal contesto di persistenza, la generazione di una query per la rimozione e la rimozione dell'oggetto dal database.
+
+\newpage 
+
+\subsection{Modifica di prodotti nel database}
+
+Si consideri come task la modifica di prodotti nel database. Ogni prodotto modificato corrisponde ad una riga della tabella aggiornata.
+
+
+\begin{table}[h!]
+  \begin{center}
+    \caption{Modifica di prodotti nel database.}
+    \begin{tabular}{l|c|r} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \textbf{Numero di prodotti} & \textbf{Tempo (Non-ORM)} & \textbf{Tempo (ORM)}\\
+      \hline
+      1K & $\sim$ 0.6 secondi & $\sim$ 2 secondi\\
+      10K & $\sim$ 2.3 secondi & $\sim$ 6 secondi\\
+      100K & $\sim$ 16.3 secondi & $\sim$ 38 secondi\\
+      1M & $\sim$ 162 secondi & $\sim$ 366 secondi\\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{images/edit-products.png}
+  \caption{Modifica di prodotti nel database.}
+  \label{fig:editproducts}
+\end{figure}
+
+Entrambe le versioni dell'applicazione subiscono una degradazione delle prestazioni, dovuta principalmente alla maggiore complessità dell'operazione da eseguire.
+
+\newpage 
+
+\subsection{Join fra tabelle del database}
+
+Si consideri come task il join fra tabelle del database. In particolare, per recuperare i dati relativi alle ricette, sarà necessario un join con la tabella dei prodotti. Per testare i limiti sia pratici che teorici, si è scelto di considerare il caso in cui tutte le ricette contengono tutti i prodotti, ed il numero di prodotti è uguale a quello delle ricette. Questo comporta la necessità di ridurre l'ordine di grandezza del numero di elementi testati, in quanto nella tabella che rappresenta l'associazione fra ricetta e prodotto c'è un numero di righe che cresce quadraticamente rispetto al numero di ricette/prodotti (che sono quelli a cui si fa riferimento nella tabella).
+
+
+\begin{table}[h!]
+  \begin{center}
+    \caption{Join fra tabelle del database.}
+    \begin{tabular}{l|c|r} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \textbf{Numero di prodotti} & \textbf{Tempo (Non-ORM)} & \textbf{Tempo (ORM)}\\
+      \hline
+      1K & $\sim$ 1.2 secondi & $\sim$ 10 secondi\\
+      2K & $\sim$ 4.2 secondi & $\sim$ 40 secondi\\
+      2.5K & $\sim$ 7.2 secondi & $\sim$ 65 secondi\\
+      3K & $\sim$ 9.5 secondi & $\sim$ 110 secondi\\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{images/join-tables.png}
+  \caption{Join fra tabelle del database.}
+  \label{fig:jointables}
+\end{figure}
+
+Questo test mette in evidenza i problemi di scaabilità che si riscontrano con l'utilizzo di tecniche ORM su datasets di ingenti dimensioni, tuttavia vale la pena notare come gli scenari considerati per questo test abbiano un valore principalmente teorico, dal momento che nell'utilizzo comune è improbabile che un utente registri nel database 1000 ricette ognuna con 1000 ingredienti, perciò per le finalità dichiarate dell'applicazione e il caso di utilizzo di un utente medio non emergeranno, salvo casi eccezionali, queste criticità. 
